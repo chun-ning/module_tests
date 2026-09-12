@@ -1,7 +1,7 @@
 // ============================================================
 // adder_ripple_carry.v
 // ============================================================
-// N sets the operand and sum width, must be >= 1.
+// N sets the operand and sum width, must be >= 1
 module adder_ripple_carry #(parameter integer N = 128)(a, b, carry_in, sum, carry_out);
 
     input   [N-1:0] a;
