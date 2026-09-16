@@ -20,7 +20,7 @@ module multiplier_shift_add_test #(parameter integer N = 8); // Change N here
 
     integer errors;
 
-    multiplier #(.N(N)) dut (
+    multiplier_shift_add #(.N(N)) dut (
         .a(a),
         .b(b),
         .product(product)

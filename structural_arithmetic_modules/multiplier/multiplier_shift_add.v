@@ -3,7 +3,7 @@
 // ============================================================
 // Unsigned
 // N sets the operand width, must be >= 1; product is 2*N bits
-module multiplier #(parameter integer N = 128)(a, b, product);
+module multiplier_shift_add #(parameter integer N = 128)(a, b, product);
 
     input   [N-1:0] a;
     input   [N-1:0] b;
