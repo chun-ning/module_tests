@@ -14,12 +14,12 @@ GTKWAVE = gtkwave
 
 .DEFAULT_GOAL := test
 
-.PHONY: test adder_test multiplier_test divider_test comparator_test comparator adder_carry_save adder_ripple_carry adder_carry_skip multiplier_shift_add divider_restoring FORCE
+.PHONY: test adder_test multiplier_test divider_test comparator_test comparator adder_carry_save adder_ripple_carry adder_carry_skip multiplier_shift_add multiplier_array divider_restoring FORCE
 
 # Run all tests; each implementation can also be run individually.
 test: adder_test multiplier_test divider_test comparator_test
 adder_test: adder_ripple_carry adder_carry_save adder_carry_skip
-multiplier_test: multiplier_shift_add
+multiplier_test: multiplier_shift_add multiplier_array
 divider_test: divider_restoring
 comparator_test: comparator
 
@@ -41,6 +41,11 @@ adder_carry_save: $(RTL_DIR)/adder_carry_save.v $(TEST_DIR)/adder_carry_save_tes
 adder_ripple_carry: $(RTL_DIR)/adder_ripple_carry.v $(TEST_DIR)/adder_ripple_carry_test.v FORCE
 	mkdir -p $(BUILD_DIR) $(WAVE_DIR)
 	$(IVERILOG) -g2012 -s adder_test -o $(BUILD_DIR)/$@ $(TEST_DIR)/adder_ripple_carry_test.v $<
+	cd $(PROJECT_DIR) && $(VVP) $(BUILD_DIR)/$@
+
+multiplier_array: $(MULTIPLIER_DIR)/multiplier_array.v $(TEST_DIR)/multiplier_array_test.v FORCE
+	mkdir -p $(BUILD_DIR) $(WAVE_DIR)
+	$(IVERILOG) -g2012 -s multiplier_array_test -o $(BUILD_DIR)/$@ $(TEST_DIR)/multiplier_array_test.v $<
 	cd $(PROJECT_DIR) && $(VVP) $(BUILD_DIR)/$@
 
 multiplier_shift_add: $(MULTIPLIER_DIR)/multiplier_shift_add.v $(TEST_DIR)/multiplier_shift_add_test.v FORCE
